@@ -9,7 +9,7 @@ import s from './playlistList.module.css'
 type Props = {
   isPlaylistsLoading: boolean
   playlists: PlaylistData[]
-  search: string
+  search?: string
 }
 export const PlaylistList = ({ playlists, isPlaylistsLoading, search }: Props) => {
   const [playlistId, setPlaylistId] = useState<string | null>(null)

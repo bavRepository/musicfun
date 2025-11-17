@@ -1,6 +1,5 @@
 import s from './playlistsPage.module.css'
 import { useFetchPlaylistsQuery } from '@/features/playlists/api/playListsApi.ts'
-import { CreatePlaylistForm } from '@/features/playlists/ui/CreatePlaylistForm/CreatePlaylistForm.tsx'
 import { type ChangeEvent, useState } from 'react'
 import { useDebounceValue } from '@/common/hooks'
 import { Pagination } from '@/common/components'
@@ -34,7 +33,7 @@ export const PlaylistsPage = () => {
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm setCurrentPage={setCurrentPage} />
+
       <input type='search' placeholder={'Search playlist by title'} onChange={searchPlaylistHandler} />
       <PlaylistList isPlaylistsLoading={isLoading} playlists={data?.data || []} search={search} />
 

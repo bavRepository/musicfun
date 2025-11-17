@@ -4,7 +4,7 @@ import { isErrorWithProperty } from '@/common/utils/isErrorWithProperty.ts'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { errorToast } from '@/common/utils/errorToast.ts'
 
-export const handleError = (error: FetchBaseQueryError) => {
+export const handleErrors = (error: FetchBaseQueryError) => {
   if (error) {
     switch (error.status) {
       case 'FETCH_ERROR':
@@ -14,6 +14,15 @@ export const handleError = (error: FetchBaseQueryError) => {
         errorToast(error.error)
         break
       case 400:
+        if (isErrorWithDetailArray(error.data)) {
+          const errorMessage = error.data.errors[0].detail
+          console.log(errorMessage)
+          if (errorMessage.includes('refresh')) return
+          errorToast(trimToMaxLength(error.data.errors[0].detail))
+        } else {
+          errorToast(JSON.stringify(error.data))
+        }
+        break
       case 403:
         if (isErrorWithDetailArray(error.data)) {
           errorToast(trimToMaxLength(error.data.errors[0].detail))
@@ -28,7 +37,6 @@ export const handleError = (error: FetchBaseQueryError) => {
           errorToast(JSON.stringify(error.data))
         }
         break
-      case 401:
       case 429:
         if (isErrorWithProperty(error.data, 'message')) {
           errorToast(error.data.message)

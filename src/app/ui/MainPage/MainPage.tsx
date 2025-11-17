@@ -6,8 +6,9 @@ export const MainPage = () => {
   return (
     <div>
       <h1>
-        {data?.login} <br />
         Main page
+        <br />
+        {data?.login}
       </h1>
     </div>
   )

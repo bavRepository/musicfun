@@ -3,7 +3,7 @@ import type { CreatePlaylistArgs } from '@/features/playlists/api/playlistsApi.t
 import { useCreatePlayListMutation } from '@/features/playlists/api/playListsApi.ts'
 
 type CreatePlaylistFormType = {
-  setCurrentPage: (page: number) => void
+  setCurrentPage?: (page: number) => void
 }
 
 export const CreatePlaylistForm = ({ setCurrentPage }: CreatePlaylistFormType) => {
@@ -15,7 +15,7 @@ export const CreatePlaylistForm = ({ setCurrentPage }: CreatePlaylistFormType) =
     createPlayList(data)
       .unwrap()
       .then(() => {
-        setCurrentPage(1)
+        setCurrentPage?.(1)
         reset()
       })
   }
